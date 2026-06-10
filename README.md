@@ -40,8 +40,8 @@ DocExtractify/
 ├── convert_word.py              # Word → Markdown
 ├── convert_ppt.py               # PowerPoint → Markdown
 ├── convert_excel_to_md.py       # Excel / CSV → Markdown
-├── convert_images.py            # Images → Markdown (LLM or PaddleOCR)
-├── ocr_engine.py                # Shared OCR module (PaddleOCR, CPU mode)
+├── convert_images.py            # Images → Markdown (LLM or EasyOCR)
+├── ocr_engine.py                # Shared OCR module (EasyOCR, CPU mode)
 ├── requirements.txt             # Python dependencies
 ├── pyproject.toml               # Project metadata
 ├── package-release.ps1          # Release build & MSIX packaging script
@@ -70,7 +70,7 @@ DocExtractify/
 | Windows | 10 (1809+) or Windows 11 |
 | Visual Studio | 2022 (17.8+) with **.NET Desktop** + **UWP** workloads |
 | .NET | 8.0 SDK |
-| Python | 3.13 |
+| Python | 3.12 |
 
 ---
 
@@ -106,12 +106,10 @@ See **[DocumentConverterWinUI/README-WinUI.md](DocumentConverterWinUI/README-Win
 > **Always Offline. Always Private.**
 
 No telemetry. No remote crash reports. No cookies. All processing happens
-locally. To eliminate residual outbound calls (model downloads, framework
-version checks):
+locally. The default local OCR path uses EasyOCR and does not contact Hugging
+Face or transformers repositories unless an `api_url` is explicitly provided.
 
 ```powershell
-$env:HF_HUB_OFFLINE = "1"
-$env:TRANSFORMERS_OFFLINE = "1"
 python api.py
 ```
 

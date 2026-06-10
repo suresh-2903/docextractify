@@ -11,7 +11,7 @@
 
 **Please do not file public GitHub issues for security problems.**
 
-Email the maintainers privately at **security@example.invalid** (replace with
+Email the maintainers privately at **DocExtractify@outlook.com** (replace with
 the actual contact for your fork) with:
 
 1. A description of the issue and the impact.
@@ -50,6 +50,7 @@ The project ships **three** runtime surfaces. Their threat models differ:
   - Extension allow-list enforced server-side
   - SSRF guard on the optional `api_url` field (rejects loopback /
     RFC1918 / link-local / cloud-metadata hosts)
+  - Local OCR uses EasyOCR and may download pretrained model files on first run if not already cached
   - Hardening response headers (`X-Content-Type-Options`, `X-Frame-Options`,
     `Referrer-Policy`, `Cache-Control: no-store`, `Content-Security-Policy`)
   - Internal exception details suppressed unless `DOCCONV_DEBUG=1`
@@ -61,6 +62,7 @@ The project ships **three** runtime surfaces. Their threat models differ:
 ### 3. WinUI 3 desktop app
 * Trust boundary: the interactive Windows user.
 * Talks only to `127.0.0.1` on the configured port.
+* Local OCR is powered by EasyOCR; no remote model-hosting or Hugging Face/transformers calls are made unless an explicit `api_url` is configured.
 * No telemetry, no analytics, no remote code execution paths.
 
 ## Operational hardening checklist
